@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use App\Entity\Tuto;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
@@ -15,14 +17,62 @@ class TutoCrudController extends AbstractCrudController
         return Tuto::class;
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
-        return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+        $fields = [
+            ImageField::new('image', 'Image')
+                ->setBasePath('uploads/')
+                ->setUploadDir('public/uploads')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setRequired(false)
         ];
+
+        $slug = SlugField::new('slug')->setTargetFieldName('name');
+
+        $name = TextField::new('name', 'Titre')
+            ->setFormTypeOptions([
+                'attr' => [
+                    'maxlength' => 255
+                ]
+            ]);
+
+        $subtitle = TextField::new('subtitle', 'Sous-Titre')
+            ->setFormTypeOptions([
+                'attr' => [
+                    'maxlength' => 255
+                ]
+            ]);
+
+        $video = TextField::new('video', 'Video')
+            ->setFormTypeOptions([
+                'attr' => [
+                    'maxlength' => 255
+                ]
+            ]);
+
+        $link = TextField::new('link', 'Lien')
+            ->setFormTypeOptions([
+                'attr' => [
+                    'maxlength' => 255
+                ]
+            ]);
+
+        $description = TextEditorField::new('description', 'Description')
+            ->setFormTypeOptions([
+                'attr' => [
+                    'maxlength' => 255
+                ]
+            ]);
+
+        $fields[] = $name;
+        $fields[] = $subtitle;
+        $fields[] = $slug;
+        $fields[] = $video;
+        $fields[] = $link;
+        $fields[] = $description;
+
+        return $fields;
     }
-    */
+
 }
